@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
-import { register, emailLogin, googleLogin } from '../services/authService.js';
+import { register, emailLogin, googleLogin, getAuthConfig } from '../services/authService.js';
 import '../styles/login.css';
 
 function LoginPage() {
@@ -16,8 +16,23 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '1234567890-placeholder.apps.googleusercontent.com';
-    const isGoogleConfigured = googleClientId && !googleClientId.includes('placeholder');
+    const [googleClientId, setGoogleClientId] = useState('');
+    const [isGoogleConfigured, setIsGoogleConfigured] = useState(false);
+
+    useEffect(() => {
+        const fetchConfig = async () => {
+            try {
+                const config = await getAuthConfig();
+                if (config && config.googleClientId && !config.googleClientId.includes('placeholder')) {
+                    setGoogleClientId(config.googleClientId);
+                    setIsGoogleConfigured(true);
+                }
+            } catch (err) {
+                console.error('Failed to fetch auth config:', err);
+            }
+        };
+        fetchConfig();
+    }, []);
 
     const handleGoogleCredentialResponse = async (response) => {
         if (loading) return;
@@ -38,7 +53,7 @@ function LoginPage() {
     };
 
     useEffect(() => {
-        if (!isGoogleConfigured) return;
+        if (!isGoogleConfigured || !googleClientId) return;
 
         const initializeGoogleSignIn = () => {
             if (window.google) {
@@ -69,7 +84,7 @@ function LoginPage() {
             }, 500);
             return () => clearInterval(checkInterval);
         }
-    }, [isSignUp]);
+    }, [isGoogleConfigured, googleClientId, isSignUp]);
 
     if (user) return <Navigate to="/dashboard" />;
 

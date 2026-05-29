@@ -7,6 +7,14 @@ const router = Router();
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/google', googleLoginController);
+router.get('/config', (req, res) => {
+    res.json({
+        success: true,
+        data: {
+            googleClientId: process.env.GOOGLE_CLIENT_ID || '1234567890-placeholder.apps.googleusercontent.com'
+        }
+    });
+});
 
 router.get('/me', authenticate, getMe);
 router.post('/logout', authenticate, logout);
