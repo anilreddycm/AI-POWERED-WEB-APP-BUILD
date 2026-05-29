@@ -1,8 +1,13 @@
 # AI Powered Web App Builder
 
+[![Deploy to Render](https://img.shields.io/badge/Deploy-Render-brightgreen.svg)](https://smartwebbuild.onrender.com)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue.svg)](https://smartwebbuild.onrender.com)
+
 ## Overview
 
-The **AI Powered Web App Builder** is a full‑stack starter kit that leverages generative AI to accelerate the creation of modern web applications. It provides a client‑side UI built with vanilla JavaScript and a lightweight Node.js/Express server, along with scripts that demonstrate how to invoke AI models for code generation, translation, and scaffolding.
+The **AI Powered Web App Builder** (SmartWebBuild) is a full‑stack starter kit that leverages generative AI to accelerate the creation of modern web applications. It provides a client‑side UI built with React/Vite and a lightweight Node.js/Express server, along with scripts that demonstrate how to invoke AI models for code generation, translation, and scaffolding.
+
+The live application is hosted on Render at: [https://smartwebbuild.onrender.com](https://smartwebbuild.onrender.com)
 
 ## Features
 
@@ -23,8 +28,8 @@ The **AI Powered Web App Builder** is a full‑stack starter kit that leverages 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ai_powered_web_app_builder.git
-cd ai_powered_web_app_builder
+git clone https://github.com/anilreddycm/AI-POWERED-WEB-APP-BUILD.git
+cd AI-POWERED-WEB-APP-BUILD
 
 # Install dependencies for client and server
 npm ci               # root package.json installs both sub‑projects
